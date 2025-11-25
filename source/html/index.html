@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>🦕 Vercel deno</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="https://matcha.mizu.sh/matcha.css">
+    <link rel="icon" href="data:image/png;base64,iVBORw0KGgo=">
+  </head>
+  <body class="layout-simple">
+    <header *clean.directives>
+      <h1><a class="accent" href="/">Vercel + Deno</a></h1>
+      <nav>
+        <menu>
+          <li>
+            <a href="https://github.com/lowlighter/vercel-deno" target="_blank">
+              <i %http="https://lecoq.io/cdn/octicons/mark-github-16.svg" %response.swap></i>
+            </a>
+          </li>
+          <li>
+            <a href="https://www.npmjs.com/package/@lowlighter/vercel-deno" target="_blank">
+              <i %http="https://lecoq.io/cdn/octicons/package-16.svg" %response.swap></i>
+            </a>
+          </li>
+          <li>
+            <a href="https://github.com/sponsors/lowlighter" target="_blank">
+              <i class="sponsor" %http="https://lecoq.io/cdn/octicons/heart-16.svg" %response.swap></i>
+            </a>
+          </li>
+        </menu>
+      </nav>
+    </header>
+    <main *clean.directives>
+      <section class="mt-2" *markdown[gfm,sanitize]="readme.hero"></section>
+      <section class="mt-2" *markdown[gfm,highlighting,anchors,sanitize]="readme.about"></section>
+      <section>
+        <h1 id="examples"><a href="#examples">🦕 Examples</a></h1>
+        <article *for="const { name, description, input, code } of examples">
+          <header>
+            <h2 :id="name"><a :href="`#${name}`"><code *text="name"></code></a></h2>
+          </header>
+          <div *markdown="description" style="margin-bottom: 1rem"></div>
+          <pre><code *code[ts]="code"></code></pre>
+          <div class="flash muted output" :data-for="name">&nbsp;</div>
+          <footer>
+            <select *if="input?.type === 'select'">
+              <option *for="const [value, name] of Object.entries(input.options)" :value *text="name"></option>
+            </select>
+            <button class="active" :data-for="name" :data-input="input">Execute</button>
+          </footer>
+        </article>
+      </section>
+      <section class="mt-4" *markdown[gfm,highlighting,anchors,sanitize]="readme.usage"></section>
+    </main>
+    <aside data-expandable="☰ Quick navigation">
+      <nav class="toc" *toc></nav>
+    </aside>
+    <footer *clean.directives>
+      <nav>
+        <menu>
+          <li>
+            <a href="https://github.com/lowlighter/vercel-deno/blob/main/LICENSE" target="_blank">
+              MIT License
+            </a>
+          </li>
+          <li>
+            <a href="https://github.com/lowlighter/vercel-deno" target="_blank">
+              <i %http="https://lecoq.io/cdn/octicons/mark-github-16.svg" %response.swap></i>
+            </a>
+          </li>
+          <li>
+            <a href="https://github.com/sponsors/lowlighter" target="_blank">
+              <i class="sponsor" %http="https://lecoq.io/cdn/octicons/heart-16.svg" %response.swap></i>
+            </a>
+          </li>
+          <li class="muted">Made with ❤️ by <a href="https://github.com/lowlighter" target="_blank"><span class="accent">@lowlighter</span></a></li>
+        </menu>
+      </nav>
+    </footer>
+    <script>
+      document.querySelectorAll("button").forEach((button) => {
+        button.addEventListener("click", async function () {
+          button.disabled = true
+          const output = document.querySelector(`.output[data-for="${button.dataset.for}"]`)
+          const options = {}
+          if ((button.dataset.input !== "null") && (button.parentElement.querySelector("select,input,textarea"))) {
+            const input = button.parentElement.querySelector("select,input,textarea")
+            options.method = "POST"
+            options.headers = { "Content-Type": "application/json" }
+            options.body = JSON.stringify({ input: input.value })
+          }
+          try {
+            output.classList.toggle("success", false)
+            output.classList.toggle("danger", false)
+            output.classList.toggle("accent", true)
+            output.innerHTML = "Running..."
+            const response = await fetch(`/api/${button.dataset.for}`, options)
+            const text = await response.text()
+            if (!response.ok)
+              throw new Error(`${response.status}: ${text}`)
+            output.textContent = text
+            output.classList.toggle("success", true)
+          } catch (error) {
+            output.classList.toggle("danger", true)
+            output.textContent = String(error)
+          } finally {
+            button.disabled = false
+            output.classList.toggle("accent", false)
+          }
+        })
+      })
+    </script>
+    <style>
+      body > header svg, body > footer svg {
+        fill: var(--ly-brand);
+        transition: fill var(--tr-duration);
+        width: 1rem;
+        height: 1rem;
+      }
+      body > header svg.sponsor, body > footer svg.sponsor {
+        fill: var(--variant);
+      }
+      article {
+        margin-left: 0;
+        margin-right: 0;
+      }
+      .output {
+        font-family: var(--ft-mono);
+      }
+    </style>
+  </body>
+</html>
