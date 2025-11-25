@@ -1,0 +1,6 @@
+{
+  "name": "vercel-deno",
+  "build": {
+    "dockerfile": "Dockerfile"
+  }
+}
