@@ -26,6 +26,6 @@ jobs:
       - uses: actions/setup-node@v4
       - uses: denoland/setup-deno@v2
       - run: deno task build
-      #- run: deno task publish
-      #  env:
-      #    NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - run: deno task publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
