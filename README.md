@@ -50,11 +50,11 @@ If you are deploying a simple Deno application with simple functions and callbac
 
 Add the following to your `vercel.json` file:
 
-```json
+```js
 // vercel.json
 {
   "functions": {
-    "api/**/*.ts": { "runtime": "@lowlighter/vercel-deno@2.0.0" }
+    "api/**/*.ts": { "runtime": "@lowlighter/vercel-deno@2.5.6" }
   }
 }
 ```
@@ -111,7 +111,7 @@ The Deno runtime is only made available by Vercel at runtime during serverless f
 
 If you wish to use it in build steps, you can use the following commands in your `vercel.json`:
 
-```json
+```js
 // vercel.json
 {
   "installCommand": "curl -fsSL https://deno.land/install.sh | sh",
