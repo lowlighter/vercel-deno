@@ -1,0 +1,12 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "cleanUrls": true,
+  "outputDirectory": "dist/public",
+  "functions": {
+    "api/**/*.ts": {
+      "runtime": "@lowlighter/vercel-deno@2.5.6-rc.0"
+    }
+  },
+  "installCommand": "(([ -d /vercel ]) && (curl -fsSL https://deno.land/install.sh | sh -s -- --yes --no-modify-path)) || true",
+  "buildCommand": "([ -d /vercel ] && /vercel/.deno/bin/deno task --quiet build) || true"
+}

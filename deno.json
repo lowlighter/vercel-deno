@@ -1,0 +1,41 @@
+{
+  "name": "@lowlighter/vercel-deno",
+  "exports": "./source/runtime/mod.ts",
+  "tasks": {
+    "check": {
+      "description": "Check formatting and linting",
+      "command": "deno fmt --check && deno lint && deno doc --lint source/runtime/mod.ts"
+    },
+    "_externals": "deno eval --quiet 'console.log(Object.keys(JSON.parse(Deno.readTextFileSync(\"package.json\")).dependencies).map(dependency => `--external ${dependency}`).join(\" \"))'",
+    "_html": "deno run --quiet -A --node-modules-dir=none source/html/build.ts",
+    "build": {
+      "description": "Build the project",
+      "command": "npm ci --omit=dev --quiet && deno bundle --quiet $(deno task _externals) source/runtime/mod.ts --output dist/mod.js && deno bundle --quiet $(deno task _externals) source/runtime/deno.ts --output dist/deno.js && deno bundle --quiet $(deno task _externals) source/runtime/deno_worker.ts --output dist/deno_worker.js && deno bundle --quiet $(deno task _externals) source/runtime/deno_dev.ts --output dist/deno_dev.js && deno task --quiet _html"
+    },
+    "publish": {
+      "description": "Publish the package",
+      "command": "npm publish --access public || true",
+      "dependencies": ["build"]
+    }
+  },
+  "imports": {
+    "@mizu/render": "jsr:@mizu/render@0.9.2",
+    "@std/path": "jsr:@std/path@1"
+  },
+  "unstable": [
+    "sloppy-imports"
+  ],
+  "fmt": {
+    "semiColons": false,
+    "useBraces": "preferNone",
+    "singleBodyPosition": "nextLine",
+    "lineWidth": 360,
+    "exclude": ["node_modules", "dist"]
+  },
+  "lint": {
+    "rules": {
+      "exclude": ["no-sloppy-imports"]
+    },
+    "exclude": ["node_modules", "dist"]
+  }
+}
