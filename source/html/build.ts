@@ -31,7 +31,13 @@ for await (const { name } of Deno.readDir(api)) {
 }
 
 // Render HTML file
-let content = ""
-for (const _ of [1, 2])
-  content = await Mizu.render(await Deno.readTextFile(input), { context: { readme, examples } })
+let content = await Deno.readTextFile(input)
+for (const _ of [1, 2]) {
+  content = await Mizu.render(content, { context: { readme, examples } })
+  content = content.replaceAll(/class="language-([a-z]+)"/g, "*code[$1]")
+}
+content = content
+  .replaceAll(/id="user-content-/g, 'id="')
+  .replaceAll("[!NOTE]", '<b class="accent">ℹ️ Note</b><br>')
+  .replaceAll("[!IMPORTANT]", '<b class="variant">⚠️ Important</b><br>')
 await Deno.writeTextFile(output, content)
