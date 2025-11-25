@@ -26,6 +26,17 @@ jobs:
       - uses: actions/setup-node@v4
       - uses: denoland/setup-deno@v2
       - run: deno task build
+      - name: git push
+        run: |
+          if [ -n "$(git status --porcelain)" ]; then
+            git config user.name 'github-actions[bot]'
+            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+            git diff
+            git add .
+            git commit -m 'ci: autogenerate files'
+            git pull --rebase
+            git push
+          fi
       - run: deno task publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
