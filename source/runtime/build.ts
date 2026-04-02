@@ -17,10 +17,10 @@ import assert from "node:assert"
 const dirname = import.meta.dirname!
 
 /** Path to the runtime script. */
-const runscript = join(dirname, "./deno.mjs")
+const runscript = join(dirname, "./deno.js")
 
 /** Path to the worker script. */
-const workerscript = join(dirname, "./deno_worker.mjs")
+const workerscript = join(dirname, "./deno_worker.js")
 
 /** Bootstrap script for AWS Lambda provided.al2 runtime. */
 const bootstrap = [
@@ -29,7 +29,7 @@ const bootstrap = [
   'export HOME="$(eval echo "~")"',
   'export PATH="$LAMBDA_TASK_ROOT/bin:$PATH"',
   'export DENO_DIR="<DENO_DIR>"',
-  `exec \${AWS_LAMBDA_EXEC_WRAPPER-} deno run <ARGS> .vercel-deno-runtime.mjs --permissions <PERMISSIONS> <COPY_CACHE>`,
+  `exec \${AWS_LAMBDA_EXEC_WRAPPER-} deno run <ARGS> .vercel-deno-runtime.js --permissions <PERMISSIONS> <COPY_CACHE>`,
 ].join("\n")
 
 /** Build function. */
@@ -119,8 +119,8 @@ export async function build({ workPath, files, entrypoint, config = {}, meta = {
   debug(`registered ${lambdaFiles} lambda file(s)`)
 
   // Include deno discovered files
-  await denoInfo(runscript, { outputFiles, env, cwd: workPath, renameFile: ".vercel-deno-runtime.mjs" })
-  await denoInfo(workerscript, { outputFiles, env, cwd: workPath, renameFile: "deno_worker.mjs" })
+  await denoInfo(runscript, { outputFiles, env, cwd: workPath, renameFile: ".vercel-deno-runtime.js" })
+  await denoInfo(workerscript, { outputFiles, env, cwd: workPath, renameFile: "deno_worker.js" })
   await denoInfo(join(workPath, entrypoint), { outputFiles, env, cwd: workPath })
   for (const dir of ["vendor", "node_modules"] as const) {
     await glob(`${dir}/**`, { cwd: workPath, includeDirectories: true }).then((files) => {

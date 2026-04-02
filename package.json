@@ -2,7 +2,7 @@
   "name": "@lowlighter/vercel-deno",
   "version": "2.7.11",
   "description": "Vercel-deno runtime",
-  "main": "dist/mod.mjs",
+  "main": "dist/mod.js",
   "license": "MIT",
   "type": "module",
   "repository": {
