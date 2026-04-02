@@ -124,7 +124,7 @@ export async function loadHandler(path: string): Promise<Deno.ServeHandler> {
 
   // Create worker
   const requests = new Map<string, { resolve: (value: Response) => void; reject: (reason?: unknown) => void }>()
-  const worker = new Worker(new URL("./deno_worker.js", import.meta.url).href, {
+  const worker = new Worker(new URL("./deno_worker.mjs", import.meta.url).href, {
     name: path,
     type: "module",
     // @ts-expect-error: Deno Worker options

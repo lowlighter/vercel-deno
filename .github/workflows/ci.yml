@@ -10,7 +10,7 @@ jobs:
     permissions:
       contents: read
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
       - uses: denoland/setup-deno@v2
       - run: deno task check
       - run: deno task build
@@ -22,8 +22,10 @@ jobs:
       contents: read
       id-token: write
     steps:
-      - uses: actions/checkout@v5
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          registry-url: https://registry.npmjs.org
       - uses: denoland/setup-deno@v2
       - run: deno task build
       - name: git push

@@ -20,7 +20,7 @@ const temp = tmpdir()
 const dirname = import.meta.dirname!
 
 /** Path to the runtime script. */
-const devscript = join(dirname, "./deno_dev.js")
+const devscript = join(dirname, "./deno_dev.mjs")
 
 /** Start dev server function. */
 export async function startDevServer({ workPath, entrypoint }: StartDevServerOptions): Promise<StartDevServerResult> {
