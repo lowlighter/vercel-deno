@@ -81,7 +81,7 @@ switch (true) {
           const response = await fetch(`${runtime}/invocation/${awsRequestId}/response`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ statusCode: result.status, headers: result.headers, encoding: "base64", body: buffer.byteLength > 0 ? encodeBase64(buffer) : "" }),
+            body: JSON.stringify({ statusCode: result.status, headers: Object.fromEntries(result.headers), encoding: "base64", body: buffer.byteLength > 0 ? encodeBase64(buffer) : "" }),
           })
           assert(response.status === 202, `Invocation result response failed: ${response.status} ${JSON.stringify(response)}`)
         } // Report invocation error

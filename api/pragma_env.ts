@@ -4,8 +4,8 @@ export default {
   async fetch(request) {
     const { input } = await request.json()
     if (!allowed.includes(input))
-      return new Response(`❌ env: ${input} is not allowed`, { status: 400, headers: { "Content-Type": "application/json" } })
-    return new Response(`🦴 env: ${input}=${Deno.env.get(input)}`, { headers: { "Content-Type": "application/json" } })
+      return new Response(`❌ env: ${input} is not allowed`, { status: 400 })
+    return new Response(`🦴 env: ${input}=${Deno.env.get(input)}`)
   },
 } satisfies Deno.ServeDefaultExport
 
