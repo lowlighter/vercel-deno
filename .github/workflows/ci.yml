@@ -24,6 +24,8 @@ jobs:
     steps:
       - uses: actions/checkout@v6
       - uses: actions/setup-node@v6
+        with:
+          registry-url: https://registry.npmjs.org
       - uses: denoland/setup-deno@v2
       - run: deno task build
       - name: git push
