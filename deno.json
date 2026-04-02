@@ -11,11 +11,6 @@
     "build": {
       "description": "Build the project",
       "command": "npm ci --omit=dev --quiet && deno bundle --quiet $(deno task _externals) source/runtime/mod.ts --output dist/mod.mjs && deno bundle --quiet $(deno task _externals) source/runtime/deno.ts --output dist/deno.mjs && deno bundle --quiet $(deno task _externals) source/runtime/deno_worker.ts --output dist/deno_worker.mjs && deno bundle --quiet $(deno task _externals) source/runtime/deno_dev.ts --output dist/deno_dev.mjs && deno task --quiet _html"
-    },
-    "publish": {
-      "description": "Publish the package",
-      "command": "npm publish --access public --provenance || true",
-      "dependencies": ["build"]
     }
   },
   "imports": {
