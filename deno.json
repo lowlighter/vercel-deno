@@ -19,8 +19,8 @@
     }
   },
   "imports": {
-    "@mizu/render": "jsr:@mizu/render@0.9.2",
-    "@std/path": "jsr:@std/path@1"
+    "@mizu/render": "jsr:@mizu/render@0.10.1",
+    "@std/path": "jsr:@std/path@^1.1.4"
   },
   "unstable": [
     "sloppy-imports"
@@ -37,5 +37,9 @@
       "exclude": ["no-sloppy-imports"]
     },
     "exclude": ["node_modules", "dist"]
-  }
+  },
+  "compilerOptions": {
+    "useUnknownInCatchVariables": false
+  },
+  "nodeModulesDir": "auto"
 }
