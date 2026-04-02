@@ -91,7 +91,7 @@ Specific instructions may be provided to the runtime using the `//@vercel:` prag
 
 | Option      | Alias | Description                              | Multiple | Dev | Default  | Example      |
 | ----------- | ----- | ---------------------------------------- | -------- | --- | -------- | ------------ |
-| `--version` | `-v`  | Specify the Deno version to use.         |          | N¹  | `latest` | `-v 2.7.11`   |
+| `--version` | `-v`  | Specify the Deno version to use.         |          | N¹  | `latest` | `-v 2.7.11`  |
 | `--env`     | `-e`  | Specify environment variables to set.    | Y        | Y   |          | `-e FOO=bar` |
 | `--include` | `-i`  | Specify additional modules to pre-cache. | Y        | N²  |          | `-i /assets` |
 
