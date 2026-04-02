@@ -38,5 +38,3 @@ jobs:
             git push
           fi
       - run: deno task publish
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

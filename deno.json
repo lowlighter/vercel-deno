@@ -14,7 +14,7 @@
     },
     "publish": {
       "description": "Publish the package",
-      "command": "npm publish --access public || true",
+      "command": "npm publish --access public --provenance || true",
       "dependencies": ["build"]
     }
   },
