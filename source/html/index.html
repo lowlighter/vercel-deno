@@ -77,55 +77,57 @@
       </nav>
     </footer>
     <script>
-      document.querySelectorAll("button").forEach((button) => {
-        button.addEventListener("click", async function () {
-          button.disabled = true
-          const output = document.querySelector(`.output[data-for="${button.dataset.for}"]`)
-          const options = {}
-          if ((button.dataset.input !== "null") && (button.parentElement.querySelector("select,input,textarea"))) {
-            const input = button.parentElement.querySelector("select,input,textarea")
-            options.method = "POST"
-            options.headers = { "Content-Type": "application/json" }
-            options.body = JSON.stringify({ input: input.value })
-          }
-          try {
-            output.classList.toggle("success", false)
-            output.classList.toggle("danger", false)
-            output.classList.toggle("accent", true)
-            output.innerHTML = "Running..."
-            const response = await fetch(`/api/${button.dataset.for}`, options)
-            const text = await response.text()
-            if (!response.ok)
-              throw new Error(`${response.status}: ${text}`)
-            output.textContent = text
-            output.classList.toggle("success", true)
-          } catch (error) {
-            output.classList.toggle("danger", true)
-            output.textContent = String(error)
-          } finally {
-            button.disabled = false
-            output.classList.toggle("accent", false)
-          }
-        })
+    document.querySelectorAll("button").forEach((button) => {
+      button.addEventListener("click", async function () {
+        button.disabled = true
+        const output = document.querySelector(`.output[data-for="${button.dataset.for}"]`)
+        const options = {}
+        if ((button.dataset.input !== "null") && (button.parentElement.querySelector("select,input,textarea"))) {
+          const input = button.parentElement.querySelector("select,input,textarea")
+          options.method = "POST"
+          options.headers = { "Content-Type": "application/json" }
+          options.body = JSON.stringify({ input: input.value })
+        }
+        try {
+          output.classList.toggle("success", false)
+          output.classList.toggle("danger", false)
+          output.classList.toggle("accent", true)
+          output.innerHTML = "Running..."
+          const response = await fetch(`/api/${button.dataset.for}`, options)
+          const text = await response.text()
+          if (!response.ok)
+            throw new Error(`${response.status}: ${text}`)
+          output.textContent = text
+          output.classList.toggle("success", true)
+        } catch (error) {
+          output.classList.toggle("danger", true)
+          output.textContent = String(error)
+        } finally {
+          button.disabled = false
+          output.classList.toggle("accent", false)
+        }
       })
+    })
     </script>
     <style>
-      body > header svg, body > footer svg {
-        fill: var(--ly-brand);
-        transition: fill var(--tr-duration);
-        width: 1rem;
-        height: 1rem;
-      }
-      body > header svg.sponsor, body > footer svg.sponsor {
-        fill: var(--variant);
-      }
-      article {
-        margin-left: 0;
-        margin-right: 0;
-      }
-      .output {
-        font-family: var(--ft-mono);
-      }
+    body > header svg,
+    body > footer svg {
+      fill: var(--ly-brand);
+      transition: fill var(--tr-duration);
+      width: 1rem;
+      height: 1rem;
+    }
+    body > header svg.sponsor,
+    body > footer svg.sponsor {
+      fill: var(--variant);
+    }
+    article {
+      margin-left: 0;
+      margin-right: 0;
+    }
+    .output {
+      font-family: var(--ft-mono);
+    }
     </style>
   </body>
 </html>

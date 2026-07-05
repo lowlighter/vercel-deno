@@ -15,7 +15,7 @@
   },
   "imports": {
     "@mizu/render": "jsr:@mizu/render@0.10.1",
-    "@std/path": "jsr:@std/path@^1.1.4"
+    "@std/path": "jsr:@std/path@^1.1.6"
   },
   "unstable": [
     "sloppy-imports"

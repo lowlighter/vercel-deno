@@ -1,6 +1,6 @@
 {
   "name": "@lowlighter/vercel-deno",
-  "version": "2.7.12",
+  "version": "2.9.1",
   "description": "Vercel-deno runtime",
   "main": "dist/mod.js",
   "license": "MIT",
@@ -11,15 +11,15 @@
   },
   "funding": "https://github.com/sponsors/lowlighter",
   "dependencies": {
-    "@vercel/build-utils": "^13.12.2",
+    "@vercel/build-utils": "^13.32.2",
     "decompress": "^4.2.1",
-    "shell-quote": "^1.8.3"
+    "shell-quote": "^1.9.0"
   },
   "devDependencies": {
     "@types/decompress": "^4.2.7",
-    "@types/deno": "^2.5.0",
-    "@types/node": "^25.5.0",
+    "@types/deno": "^2.7.0",
+    "@types/node": "^26.1.0",
     "@types/shell-quote": "^1.7.5",
-    "@vercel/routing-utils": "^6.1.1"
+    "@vercel/routing-utils": "^6.4.0"
   }
 }
