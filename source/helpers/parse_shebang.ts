@@ -81,7 +81,8 @@ export function parseShebang(value: string, options?: { permissions: Parameters<
     }
     if (flags.includes("--allow-all") || flags.includes("-A"))
       result.permissions = "inherit"
-    result.permissions = permissions
+    else
+      result.permissions = permissions
     result.flags = flags
   }
 
