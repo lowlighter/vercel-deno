@@ -1,6 +1,6 @@
 {
   "name": "@lowlighter/vercel-deno",
-  "version": "2.9.1",
+  "version": "2.9.2",
   "description": "Vercel-deno runtime",
   "main": "dist/mod.js",
   "license": "MIT",
