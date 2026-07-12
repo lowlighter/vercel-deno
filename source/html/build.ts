@@ -12,6 +12,9 @@ const input = fromFileUrl(import.meta.resolve("./index.html"))
 /** Output HTML file. */
 const output = fromFileUrl(import.meta.resolve("../../dist/public/index.html"))
 
+/** Output favicon file. */
+const favicon = fromFileUrl(import.meta.resolve("../../dist/public/favicon.ico"))
+
 const mdcontent = await Deno.readTextFile(fromFileUrl(import.meta.resolve("../../README.md")))
 
 /** README file. */
@@ -41,3 +44,4 @@ content = content
   .replaceAll("[!NOTE]", '<b class="accent">ℹ️ Note</b><br>')
   .replaceAll("[!IMPORTANT]", '<b class="variant">⚠️ Important</b><br>')
 await Deno.writeTextFile(output, content)
+await Deno.copyFile(fromFileUrl(import.meta.resolve("./favicon.ico")), favicon)
